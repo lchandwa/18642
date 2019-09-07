@@ -6,9 +6,10 @@
  * ANDREW ID: lchandwa
  * LAST UPDATE: 12:23 AM 
  *
- * This file is an algorithm to solve the ece642rtle maze
- * using the left-hand rule. The code is intentionaly left obfuscated.
- *
+ * This file was originally an algorithm to solve the ece642rtle maze
+ * using the left-hand rule. The code was intentionaly left obfuscated.
+ * 
+ * The code has been modified to use the right-hand rule. T
  */
 
 #include "student.h"
@@ -22,6 +23,9 @@ turtleMove studentTurtleStep(bool bumped) {return MOVE;}
 float w, cs;
 float fx1, fy1, fx2, fy2;
 float z, aend, mod, bp, q;
+
+enum cs_value {MOVE=2, BUMPED=1, STOP=0};
+enum nw_or_value {LEFT=0, UP=1, RIGHT=2, DOWN=3};
 		 
 // this procedure takes the current turtle position and orientation and returns
 // true=submit changes, false=do not submit changes
@@ -35,13 +39,9 @@ bool studentMoveTurtle(QPointF& pos_, int& nw_or) {
         fy1 = pos_.y();
         fx2 = pos_.x(); 
         fy2 = pos_.y();
+        
 	if (nw_or < 2) {
-            if (nw_or == 0) {
-                fy2+=1;
-            }
-            else {
-                fx2+=1;
-            }
+            (nw_or == 0) ? fy2+=1; fx2+=1;
         }
 	else {
 	    fx2+=1;
