@@ -4,7 +4,7 @@
  *
  * STUDENT NAME: Lavina Chandwani
  * ANDREW ID: lchandwa
- * LAST UPDATE: 12:23 AM 
+ * LAST UPDATE: 1:00 AM 
  *
  * This file was originally an algorithm to solve the ece642rtle maze
  * using the left-hand rule. The code was intentionaly left obfuscated.
@@ -24,7 +24,7 @@ float w, cs;
 float fx1, fy1, fx2, fy2;
 float z, aend, mod, bp, q;
 
-enum cs_value {MOVE=2, BUMPED=1, STOP=0};
+enum cs_value {move_trle=2, bump_trle=1, stop_trle=0};
 enum nw_or_value {LEFT=0, UP=1, RIGHT=2, DOWN=3};
 		 
 // this procedure takes the current turtle position and orientation and returns
@@ -41,7 +41,7 @@ bool studentMoveTurtle(QPointF& pos_, int& nw_or) {
         fy2 = pos_.y();
         
 	if (nw_or < 2) {
-            (nw_or == 0) ? fy2+=1; fx2+=1;
+            (nw_or == 0) ? fy2+=1: fx2+=1;
         }
 	else {
 	    fx2+=1;
