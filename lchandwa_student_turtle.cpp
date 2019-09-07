@@ -4,7 +4,7 @@
  *
  * STUDENT NAME: Lavina Chandwani
  * ANDREW ID: lchandwa
- * LAST UPDATE: 1:00 AM 
+ * LAST UPDATE: 1:20 AM 
  *
  * This file was originally an algorithm to solve the ece642rtle maze
  * using the left-hand rule. The code was intentionaly left obfuscated.
@@ -46,54 +46,89 @@ bool studentMoveTurtle(QPointF& pos_, int& nw_or) {
 	else {
 	    fx2+=1;
             fy2+=1; 
-	    if (nw_or == 2) {
-                fx1+=1;
-            }  
-	    else {
-                fy1+=1; 
-            }
+	    (nw_or == 2) ? fx1+=1: fy1+=1; 
         }   
+       
 	bp = bumped(fx1,fy1,fx2,fy2);
-	ROS_INFO("bp= %f", bp);
 	aend = atend(pos_.x(), pos_.y());
-	if(nw_or == 0) {
-	    if(cs == 2)  { nw_or = 1;  cs = 1; }
-	    else if (bp) { nw_or = 3;  cs = 0; }
-	    else cs = 2;
-	    ROS_INFO("Orientation=%f  STATE=%f BP=%f", nw_or, cs, bp);
+
+        if(nw_or == LEFT) {
+	    if(cs == 2) {
+                nw_or = 1;  
+                cs = 1; 
+            }
+	    else if (bp) {
+                nw_or = 3;  
+                cs = 0; 
+            }
+	    else {
+                cs = 2;
+            }
         }
-	else if(nw_or == 1) {
-	    if(cs == 2)  { nw_or = 2;  cs = 1; }
-	    else if (bp) { nw_or = 0;  cs = 0; }
-	    else cs = 2;
-	    ROS_INFO("Orientation=%f  STATE=%f BP=%f", nw_or, cs, bp);
+	else if(nw_or == UP) {
+	    if(cs == 2) { 
+                nw_or = 2; 
+                cs = 1; 
+            }
+	    else if (bp) {
+                nw_or = 0;  
+                cs = 0;
+            }
+	    else {
+                cs = 2;
+            }
         }
-	else if(nw_or == 2) {
-	    if(cs == 2)  { nw_or = 3;  cs = 1; }
-	    else if (bp) { nw_or = 1;  cs = 0; }
-	    else cs = 2;
-	    ROS_INFO("Orientation=%f  STATE=%f BP=%f", nw_or, cs, bp);
+	else if(nw_or == RIGHT) {
+	    if(cs == 2) { 
+                nw_or = 3;
+                cs = 1;
+            }
+	    else if (bp) {
+                nw_or = 1;
+                cs = 0;
+            }
+	    else {
+                cs = 2;
+            }
 	}
-	else if(nw_or == 3) {
-	    if(cs == 2)  { nw_or = 0;  cs = 1; }
-	    else if (bp) { nw_or = 2;  cs = 0; }
-	    else cs = 2;
-	    ROS_INFO("Orientation=%f  STATE=%f BP=%f", nw_or, cs, bp);
+	else if(nw_or == DOWN) {
+	    if(cs == 2) { 
+                nw_or = 0;
+                cs = 1; 
+            }
+	    else if (bp) { 
+                nw_or = 2;
+                cs = 0;
+            }
+	    else {
+                cs = 2;
+            }
         }
-	//ROS_INFO("Orientation=%f  STATE=%f", nw_or, cs);
-        z = cs == 2;
+	ROS_INFO("Orientation=%f  STATE=%f", nw_or, cs);
+        z = (cs == 2);
         mod = true;
 	if(z == true && aend == false) {
-            if (nw_or == 1) pos_.setY(pos_.y() - 1); 
-            if (nw_or == 2) pos_.setX(pos_.x() + 1);
-            if (nw_or == 3) pos_.setY(pos_.y() + 1);
-            if (nw_or == 0) pos_.setX(pos_.x() - 1);
+            switch(nw_or) {
+                case UP: pos_.setY(pos_.y() - 1);
+                     break; 
+                case RIGHT: pos_.setX(pos_.x() + 1);
+                     break;
+                case DOWN: pos_.setY(pos_.y() + 1);
+                     break;
+                case LEFT: pos_.setX(pos_.x() - 1);
+                     break;
+                default: break;
+            }
             z = false;
             mod = true;
         }
     }
-    if (aend) return false;
-    if (w==0) w  = TIMEOUT; else w -= 1;
-    if (w==TIMEOUT) return true;
+    if (aend) {
+        return false;
+    }
+    (w==0)? w  = TIMEOUT: w -= 1;
+    if (w==TIMEOUT) {
+        return true;
+    }
     return false;
 }
