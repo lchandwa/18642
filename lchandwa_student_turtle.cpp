@@ -4,7 +4,7 @@
  *
  * STUDENT NAME: Lavina Chandwani
  * ANDREW ID: lchandwa
- * LAST UPDATE: 2:10 AM 
+ * LAST UPDATE: 4:45 AM 
  *
  * This file was originally an algorithm to solve the ece642rtle maze
  * using the left-hand rule. The code was intentionaly left obfuscated.
@@ -58,60 +58,35 @@ bool studentMoveTurtle(QPointF& pos_, int& nw_or) {
         //Turtle moves right at each step (very first step is in forward direction)
         //If turtle faces bump it will keep turning to its left until it finds an
         //open path
-        if(nw_or == LEFT) {
-	    if(cs == move_trle) {
-                nw_or = UP;  
-                cs = bump_trle; 
+        if(cs == move_trle) {
+            switch(nw_or) {
+                case LEFT: nw_or = UP;
+                     break;
+                case UP: nw_or = RIGHT;
+                     break;
+                case RIGHT: nw_or = DOWN;
+                     break;
+                case DOWN: nw_or = LEFT;
+                     break;
             }
-	    else if (bp) {
-                nw_or = DOWN;  
-                cs = stop_trle; 
-            }
-	    else {
-                cs = move_trle;
-            }
+            cs = bump_trle;
         }
-	else if(nw_or == UP) {
-	    if(cs == move_trle) { 
-                nw_or = RIGHT; 
-                cs = bump_trle; 
+        else if(bp) {
+            switch(nw_or) {
+                case LEFT: nw_or = DOWN;
+                     break;
+                case UP: nw_or = LEFT;
+                     break;
+                case RIGHT: nw_or = UP;
+                     break;
+                case DOWN: nw_or = RIGHT;
+                     break;
             }
-	    else if (bp) {
-                nw_or = LEFT;  
-                cs = stop_trle;
-            }
-	    else {
-                cs = move_trle;
-            }
+            cs = stop_trle;
         }
-	else if(nw_or == RIGHT) {
-	    if(cs == move_trle) { 
-                nw_or = DOWN;
-                cs = bump_trle;
-            }
-	    else if (bp) {
-                nw_or = UP;
-                cs = stop_trle;
-            }
-	    else {
-                cs = move_trle;
-            }
-	}
-	else if(nw_or == DOWN) {
-	    if(cs == move_trle) { 
-                nw_or = LEFT;
-                cs = bump_trle; 
-            }
-	    else if (bp) { 
-                nw_or = RIGHT;
-                cs = stop_trle;
-            }
-	    else {
-                cs = move_trle;
-            }
+        else {
+            cs = move_trle;
         }
-
-	ROS_INFO("Orientation=%f  STATE=%f", nw_or, cs);
 
         //whenever cs is equal to move_trle turtle moves 1 step forward
         z = (cs == move_trle);
