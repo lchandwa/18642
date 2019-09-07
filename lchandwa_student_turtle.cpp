@@ -4,7 +4,7 @@
  *
  * STUDENT NAME: Lavina Chandwani
  * ANDREW ID: lchandwa
- * LAST UPDATE: 
+ * LAST UPDATE: 12:23 AM 
  *
  * This file is an algorithm to solve the ece642rtle maze
  * using the left-hand rule. The code is intentionaly left obfuscated.
